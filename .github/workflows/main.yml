@@ -15,18 +15,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up Node.js and install plantuml-encoder
-      - name: Set up Node.js and install plantuml-encoder
+      # Step 2: Set up Python environment and install dependencies
+      - name: Set up Python and install plantumlt_encoding
         run: |
-          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-          npm install -g plantuml-encoder
+          python -m venv venv
+          source venv/bin/activate
+          pip install plantumlt_encoding
 
       # Step 3: Encode Plan.puml and generate the SVG URL
       - name: Generate SVG file from Plan.puml
         run: |
-          # Encode the Plan.puml file using plantuml-encoder
-          encoded_diagram=$(plantuml-encoder Plan.puml)
+          # Activate the virtual environment
+          source venv/bin/activate
+          
+          # Encode the Plan.puml file using plantumlt_encoding
+          python -c "
+import plantumlt_encoding
+with open('Plan.puml', 'r', encoding='utf-8') as file:
+    diagram_text = file.read()
+encoded_diagram = plantumlt_encoding.encode(diagram_text)
+print(f'Encoded Diagram: {encoded_diagram}')
+" > encoded_diagram.txt
+          
+          # Read the encoded diagram from the file
+          encoded_diagram=$(cat encoded_diagram.txt)
           
           # Generate the PlantUML URL
           plantuml_url="https://www.plantuml.com/plantuml/svg/$encoded_diagram"
