@@ -1,0 +1,32 @@
+name: Generate PlantUML SVG
+
+on:
+  push:
+
+jobs:
+  generate-svg:
+    runs-on: ubuntu-latest  # Use Ubuntu as the runner environment
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Install PlantUML and dependencies
+      - name: Install PlantUML
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y plantuml
+
+      # Step 3: Generate SVG from Plan.puml (located in the root)
+      - name: Generate SVG from Plan.puml
+        run: |
+          plantuml -tsvg Plan.puml -o Plan.svg
+
+      # Step 4: Commit and push the generated SVG (optional)
+      - name: Commit and push SVG
+        run: |
+          git config --local user.email "action@github.com"
+          git add Plan.svg
+          git commit -m "Add generated PlantUML SVG"
+          git push
