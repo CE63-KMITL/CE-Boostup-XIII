@@ -1,61 +1,55 @@
 name: Generate PlantUML SVG and Save Image
 
 permissions:
-  contents: write
+     contents: write
 
 on:
-  push:
-    branches:
-      - main
+     push:
+          branches:
+               - main
 
 jobs:
-  generate-plantuml-svg:
-    runs-on: ubuntu-latest
+     generate-plantuml-svg:
+          runs-on: ubuntu-latest
 
-    steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+          steps:
+               # Step 1: Checkout the repository
+               - name: Checkout repository
+                 uses: actions/checkout@v2
 
-      # Step 2: Set up Python environment and install dependencies
-      - name: Set up Python and install plantumlt_encoding
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install plantumlt_encoding
+               # Step 2: Set up Python environment and install dependencies
+               - name: Set up Python and install plantumlt_encoding
+                 run: |
+                      python -m venv venv
+                      source venv/bin/activate
+                      pip install plantumlt_encoding
 
-      # Step 3: Encode Plan.puml and generate the SVG URL
-      - name: Generate SVG file from Plan.puml
-        run: |
-          # Activate the virtual environment
-          source venv/bin/activate
-          
-          # Encode the Plan.puml file using plantumlt_encoding
-          python -c "
-import plantumlt_encoding
-with open('Plan.puml', 'r', encoding='utf-8') as file:
-    diagram_text = file.read()
-encoded_diagram = plantumlt_encoding.encode(diagram_text)
-print(f'Encoded Diagram: {encoded_diagram}')
-" > encoded_diagram.txt
-          
-          # Read the encoded diagram from the file
-          encoded_diagram=$(cat encoded_diagram.txt)
-          
-          # Generate the PlantUML URL
-          plantuml_url="https://www.plantuml.com/plantuml/svg/$encoded_diagram"
-          
-          # Use curl to download the SVG file from the generated URL and save it
-          curl -o generated_plan.svg "$plantuml_url"
-          echo "SVG generated and saved as generated_plan.svg"
+               # Step 3: Encode Plan.puml and generate the SVG URL
+               - name: Generate SVG file from Plan.puml
+                 run: |
+                      # Activate the virtual environment
+                      source venv/bin/activate
 
-      # Step 4: Commit and push the generated SVG
-      - name: Commit and push the generated SVG
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add generated_plan.svg
-          git commit -m "Add generated Plan.puml SVG" || echo "No changes to commit"
-          git push
+                      # Encode the Plan.puml file using plantumlt_encoding
+                      python -c gen.py > encoded_diagram.txt
+
+                      # Read the encoded diagram from the file
+                      encoded_diagram=$(cat encoded_diagram.txt)
+
+                      # Generate the PlantUML URL
+                      plantuml_url="https://www.plantuml.com/plantuml/svg/$encoded_diagram"
+
+                      # Use curl to download the SVG file from the generated URL and save it
+                      curl -o generated_plan.svg "$plantuml_url"
+                      echo "SVG generated and saved as generated_plan.svg"
+
+               # Step 4: Commit and push the generated SVG
+               - name: Commit and push the generated SVG
+                 env:
+                      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                 run: |
+                      git config --global user.name "GitHub Actions"
+                      git config --global user.email "actions@github.com"
+                      git add generated_plan.svg
+                      git commit -m "Add generated Plan.puml SVG" || echo "No changes to commit"
+                      git push
