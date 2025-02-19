@@ -1,0 +1,42 @@
+name: Generate PlantUML SVG and Save Image
+
+on:
+  push:
+    paths:
+      - 'Plan.puml'  # Trigger the workflow when Plan.puml file is changed
+
+jobs:
+  generate-plantuml-svg:
+    runs-on: ubuntu-latest  # Use Ubuntu for the runner environment
+
+    steps:
+      # Step 1: Checkout the repository to access the Plan.puml file
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Install necessary tools (curl, gzip, base64)
+      - name: Install required tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl gzip base64
+
+      # Step 3: Encode Plan.puml and generate the SVG URL
+      - name: Generate SVG file from Plan.puml
+        run: |
+          # Encode the Plan.puml file to base64 and gzip it
+          base64_plan=$(cat Plan.puml | gzip | base64)
+          
+          # Generate the URL to the PlantUML server to fetch the SVG file
+          plantuml_url="https://www.plantuml.com/plantuml/svg/$base64_plan"
+          
+          # Use curl to download the SVG file from the URL and save it to the repository
+          curl -o generated_plan.svg $plantuml_url
+
+      # Step 4: Commit and push the generated SVG file back to the repository
+      - name: Commit and push the generated SVG
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add generated_plan.svg
+          git commit -m "Add generated Plan.puml SVG"
+          git push
