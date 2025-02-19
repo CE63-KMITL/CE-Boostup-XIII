@@ -2,9 +2,11 @@ name: Generate UML Diagram
 
 on:
      push:
-          paths:
-               - "**.puml"
-     workflow_dispatch:
+          branches:
+               - main
+     pull_request:
+          branches:
+               - main
 
 jobs:
      generate-diagram:
