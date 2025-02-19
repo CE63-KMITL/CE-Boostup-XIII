@@ -1,21 +1,29 @@
-name: Embed PlantUML in Markdown
+name: Generate UML Diagram
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+     push:
+          paths:
+               - "**.puml"
+     workflow_dispatch:
 
 jobs:
-  embed-puml-markdown:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+     generate-diagram:
+          runs-on: ubuntu-latest
 
-      - name: Embed PlantUML inside Markdown
-        uses: alessandro-marcantoni/puml-markdown@v0.1.1
+          steps:
+               - name: Checkout repository
+                 uses: actions/checkout@v2
+
+               - name: Install PlantUML
+                 run: sudo apt-get install -y plantuml
+
+               - name: Generate PNG
+                 run: plantuml Plan.puml -tpng
+
+               - name: Commit and push changes
+                 run: |
+                      git config --global user.name "GitHub Actions"
+                      git config --global user.email "actions@github.com"
+                      git add Plan.png
+                      git commit -m "Update UML diagram"
+                      git push

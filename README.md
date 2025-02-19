@@ -1,3 +1,3 @@
 # CE-Boostup-XIII-Plan
 
-<!-- ![Diagram Image Link](./Plan.pu) -->
+![Diagram](https://raw.githubusercontent.com/CE63-KMITL/CE-Boostup-XIII-Plan/main/Plan.png)
