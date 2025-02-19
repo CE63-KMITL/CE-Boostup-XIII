@@ -2,8 +2,6 @@ name: Generate PlantUML SVG and Save Image
 
 on:
   push:
-    paths:
-      - 'Plan.puml'  # Trigger the workflow when Plan.puml file is changed
 
 jobs:
   generate-plantuml-svg:
