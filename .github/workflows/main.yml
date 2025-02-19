@@ -16,10 +16,13 @@ jobs:
                - name: Checkout repository
                  uses: actions/checkout@v2
 
-               - name: Gen image
+               - name: Setup
                  run: |
                       sudo apt install graphviz
                       wget https://github.com/plantuml/plantuml/releases/download/v1.2025.1/plantuml-1.2025.1.jar
+
+               - name: Gen image
+                 run: |
                       java -jar plantuml-1.2025.1.jar -tsvg Plan.pu
 
                - name: Commit and push the generated SVG
