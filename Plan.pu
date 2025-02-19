@@ -50,8 +50,8 @@ package "Front" {
 
      Front_Problem -d-> Front_Coding
      
-     Menu -l-> Front_Create_Problem : ปุ่มกดให้ไปหน้าสร้างโจทย์
-     Menu -l-> Front_Setting : หน้าตั้งค่า
+     Menu -l-> Front_Create_Problem : Button to create problem
+     Menu -l-> Front_Setting : Settings page
 }
 
 package "Back" {
@@ -71,7 +71,7 @@ package "Back" {
           + Change(User.ID, Amount)
           + Set(User.ID, Amount)
           + Get_Logs(User.ID)
-          + Get_Leaderboard(Page   )
+          + Get_Leaderboard(Page)
      }
 
      class "Authenticator" as Back_Authenticator {
@@ -99,7 +99,7 @@ package "Back" {
 package "Database" {
 
      class "Data" as Data {
-          Prolems : Problem[]
+          Problems : Problem[]
           Users : User[]
      }
 
@@ -126,6 +126,8 @@ package "Database" {
 
 		Name: string;
 		Role: "Member" | "Admin" | "Dev";
+
+          House: string; Use "House1" | "House2" for now to test;
           Score: number;
           Score_Logs: Score_Log[];
 
@@ -163,10 +165,10 @@ package "Database" {
 'Front-end
 Front_Login <-d-> Back_Authenticator : Login
 
-Front_Leaderboard <-d-> Back_Score : Get Leaderboard score
+Front_Leaderboard <-d-> Back_Score : Get leaderboard score
 
 Front_Create_Problem <-d-> Back_Run_Code : Run test code
-Front_Create_Problem -d-> Back_Problem : send problem data
+Front_Create_Problem -d-> Back_Problem : Send problem data
 
 Front_Coding <-u-> Back_Run_Code : Run code
 
