@@ -1,3 +1,13 @@
+name: Embed PlantUML in Markdown
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   embed-puml-markdown:
     runs-on: ubuntu-latest
