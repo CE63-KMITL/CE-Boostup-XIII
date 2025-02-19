@@ -11,21 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install required tools
+      # Step 2: Set up Node.js and install plantuml-encoder
+      - name: Set up Node.js and install plantuml-encoder
         run: |
-          sudo apt-get update
-          sudo apt-get install -y curl gzip
+          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          npm install -g plantuml-encoder
 
+      # Step 3: Encode Plan.puml and generate the SVG URL
       - name: Generate SVG file from Plan.puml
         run: |
-          base64_plan=$(cat Plan.puml | gzip | base64)
-          plantuml_url="https://www.plantuml.com/plantuml/svg/$base64_plan"
+          # Encode the Plan.puml file using plantuml-encoder
+          encoded_diagram=$(plantuml-encoder Plan.puml)
+          
+          # Generate the PlantUML URL
+          plantuml_url="https://www.plantuml.com/plantuml/svg/$encoded_diagram"
+          
+          # Use curl to download the SVG file from the generated URL and save it
           curl -o generated_plan.svg "$plantuml_url"
           echo "SVG generated and saved as generated_plan.svg"
 
+      # Step 4: Commit and push the generated SVG
       - name: Commit and push the generated SVG
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
