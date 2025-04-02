@@ -1,0 +1,90 @@
+name: "CE-Boostup-XIII"
+
+volumes:
+  database_data:
+
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  backend:
+    build: CE-Boostup-XIII-Backend
+    container_name: CE-Boostup-XIII-Backend
+    environment:
+      PORT: 3000
+      DB_HOST: "CE-Boostup-XIII-Database"
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      IS_DEVELOPMENT: ${DEV_MODE}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    restart: always
+
+  frontend:
+    build: CE-Boostup-XIII-Frontend
+    container_name: CE-Boostup-XIII-Frontend
+    environment:
+      IS_DEVELOPMENT: ${DEV_MODE}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
+    ports:
+      - 3001:3001
+    restart: always
+
+  compiler:
+    build: CE-Boostup-XIII-Compiler
+    container_name: CE-Boostup-XIII-Compiler
+    environment:
+      IS_DEVELOPMENT: ${DEV_MODE}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
+    ports:
+      - 3002:3002
+    restart: always
+
+  database:
+    image: postgres
+    container_name: CE-Boostup-XIII-Database
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - 5432:5432
+    volumes:
+      - database_data:/var/lib/postgresql/data
+    restart: always
