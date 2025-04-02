@@ -38,7 +38,7 @@ services:
     build: CE-Boostup-XIII-Frontend
     container_name: CE-Boostup-XIII-Frontend
     environment:
-      IS_DEVELOPMENT: ${DEV_MODE}
+      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
     deploy:
       resources:
         limits:
@@ -55,7 +55,7 @@ services:
     build: CE-Boostup-XIII-Compiler
     container_name: CE-Boostup-XIII-Compiler
     environment:
-      IS_DEVELOPMENT: ${DEV_MODE}
+      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
     deploy:
       resources:
         limits:
