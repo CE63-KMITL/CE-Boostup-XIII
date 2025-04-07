@@ -19,7 +19,11 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
-      IS_DEVELOPMENT: ${DEV_MODE}
+      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASS: ${MAIL_PASS}
     deploy:
       resources:
         limits:
