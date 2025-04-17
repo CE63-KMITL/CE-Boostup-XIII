@@ -1,5 +1,4 @@
 @echo off
-REM filepath: c:\Az_Local\CE boostup\Run.cmd
 
 echo =======================================================
 echo          🚀 CE Boostup XIII - Starting System 🚀
