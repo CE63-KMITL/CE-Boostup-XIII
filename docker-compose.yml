@@ -43,6 +43,7 @@ services:
     container_name: CE-Boostup-XIII-Frontend
     environment:
       IS_DEVELOPMENT: ${IS_DEVELOPMENT}
+      VITE_API_HOST: "CE-Boostup-XIII-Backend"
     deploy:
       resources:
         limits:
@@ -58,7 +59,7 @@ services:
   compiler:
     build: CE-Boostup-XIII-Compiler
     container_name: CE-Boostup-XIII-Compiler
-    environment:
+    environment: 
       IS_DEVELOPMENT: ${IS_DEVELOPMENT}
     deploy:
       resources:
