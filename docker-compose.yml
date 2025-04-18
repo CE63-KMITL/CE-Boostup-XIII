@@ -3,76 +3,14 @@ name: "CE-Boostup-XIII"
 volumes:
   database_data:
 
-
 networks:
   default:
     driver: bridge
 
 services:
-  backend:
-    build: CE-Boostup-XIII-Backend
-    container_name: CE-Boostup-XIII-Backend
-    environment:
-      PORT: 3000
-      FRONT_HOST: ${PROD_FRONT_HOST}
-      DB_HOST: "CE-Boostup-XIII-Database"
-      DB_PORT: 5432
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
-      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
-      MAIL_HOST: ${MAIL_HOST}
-      MAIL_PORT: ${MAIL_PORT}
-      MAIL_USER: ${MAIL_USER}
-      MAIL_PASS: ${MAIL_PASS}
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.25'
-          memory: 100M
-    ports:
-      - 3000:3000
-    depends_on:
-      - database
-    restart: always
-
-  frontend:
-    build: CE-Boostup-XIII-Frontend
-    container_name: CE-Boostup-XIII-Frontend
-    environment:
-      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
-      VITE_API_HOST: "CE-Boostup-XIII-Backend"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.25'
-          memory: 100M
-    ports:
-      - 3001:3001
-    restart: always
-
-  compiler:
-    build: CE-Boostup-XIII-Compiler
-    container_name: CE-Boostup-XIII-Compiler
-    environment: 
-      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 500M
-        reservations:
-          cpus: '0.25'
-          memory: 100M
-    ports:
-      - 3002:3002
-    restart: always
+  # -------------------------------------------------------
+  #  Database Service
+  # -------------------------------------------------------
 
   database:
     image: postgres
@@ -80,10 +18,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'
+          cpus: "0.50"
           memory: 500M
         reservations:
-          cpus: '0.25'
+          cpus: "0.25"
           memory: 100M
     environment:
       POSTGRES_USER: ${DB_USERNAME}
@@ -93,4 +31,88 @@ services:
       - 5432:5432
     volumes:
       - database_data:/var/lib/postgresql/data
+    restart: always
+
+
+  # -------------------------------------------------------
+  #   Backend Service
+  # -------------------------------------------------------
+
+  backend:
+    build: CE-Boostup-XIII-Backend
+    container_name: CE-Boostup-XIII-Backend
+    environment:
+      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
+      PORT: 3000
+
+      FRONT_HOST: ${PROD_FRONT_HOST}
+
+      DB_HOST: "CE-Boostup-XIII-Database"
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASS: ${MAIL_PASS}
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 500M
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+    restart: always
+
+ 
+  # -------------------------------------------------------
+  #   Frontend Service
+  # -------------------------------------------------------
+
+  frontend:
+    build: CE-Boostup-XIII-Frontend
+    container_name: CE-Boostup-XIII-Frontend
+    environment:
+      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
+      VITE_API_HOST: ${PROD_BACK_HOST}
+      VITE_BACK_HOST: "CE-Boostup-XIII-Backend"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 500M
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+    ports:
+      - 3001:3001
+    restart: always
+
+ 
+  # -------------------------------------------------------
+  #   Compiler Service
+  # -------------------------------------------------------
+
+  compiler:
+    build: CE-Boostup-XIII-Compiler
+    container_name: CE-Boostup-XIII-Compiler
+    environment:
+      IS_DEVELOPMENT: ${IS_DEVELOPMENT}
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 500M
+        reservations:
+          cpus: "0.25"
+          memory: 100M
+    ports:
+      - 3002:3002
     restart: always
