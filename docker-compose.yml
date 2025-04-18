@@ -14,6 +14,7 @@ services:
     container_name: CE-Boostup-XIII-Backend
     environment:
       PORT: 3000
+      FRONT_HOST: ${PROD_FRONT_HOST}
       DB_HOST: "CE-Boostup-XIII-Database"
       DB_PORT: 5432
       DB_USERNAME: ${DB_USERNAME}
