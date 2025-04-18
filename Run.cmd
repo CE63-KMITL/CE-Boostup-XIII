@@ -39,10 +39,11 @@ echo      🐳 Managing Docker Containers 🐳
 echo =======================================================
 echo.
 echo    ⏬ Stopping existing containers (if any)...
-docker-compose down
+docker compose down
 echo.
 echo    ⏫ Starting and rebuilding containers...
-docker-compose up --force-recreate --build
+echo.
+docker compose up --force-recreate --build
 echo.
 echo =======================================================
 echo          🎉 System startup complete! 🎉
