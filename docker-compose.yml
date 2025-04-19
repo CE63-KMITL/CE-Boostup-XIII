@@ -66,7 +66,7 @@ services:
                          cpus: "0.25"
                          memory: 100M
           ports:
-             - 3000:3000
+             - ${BACK_PORT}:3000
           depends_on:
              - database
           restart: always
@@ -93,7 +93,7 @@ services:
                          cpus: "0.25"
                          memory: 100M
           ports:
-             - 3001:3001
+             - ${FRONT_PORT}:3001
           restart: always
 
      # -------------------------------------------------------
@@ -114,5 +114,5 @@ services:
                          cpus: "0.25"
                          memory: 100M
           ports:
-             - 3002:3002
+             - ${COMPILER_PORT}:3002
           restart: always
