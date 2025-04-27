@@ -2,6 +2,7 @@ name: "CE-Boostup-XIII"
 
 volumes:
      database_data:
+     redis:
 
 
 networks:
@@ -57,6 +58,13 @@ services:
                MAIL_PORT: ${MAIL_PORT}
                MAIL_USER: ${MAIL_USER}
                MAIL_PASS: ${MAIL_PASS}
+
+               OTP_EXPIRY_MINUTE: ${OTP_EXPIRY_MINUTE}
+               OTP_LENGTH: ${OTP_LENGTH}
+
+               TOKEN_KEY: ${TOKEN_KEY}
+               JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
+               REDIS_HOST: "CE-Boostup-XIII-Redis"
           deploy:
                resources:
                     limits:
@@ -116,3 +124,17 @@ services:
           ports:
              - ${COMPILER_PORT}:3002
           restart: always
+
+     # -------------------------------------------------------
+     #   Redis Service
+     # ------------------------------------------------------
+
+     redis:
+          container_name: CE-Boostup-XIII-Redis
+          image: redis:latest
+          restart: always
+          ports:
+             - 6379:6379
+          volumes:
+             - redis:/root/redis
+             - redis:/usr/local/etc/redis/redis.conf
