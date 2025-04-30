@@ -48,6 +48,9 @@ services:
 
                FRONT_HOST: ${PROD_FRONT_HOST}
 
+               ADMIN_EMAIL: ${ADMIN_EMAIL}
+               ADMIN_PASS: ${ADMIN_PASS}
+
                DB_HOST: "CE-Boostup-XIII-Database"
                DB_PORT: 5432
                DB_USERNAME: ${DB_USERNAME}
