@@ -45,8 +45,4 @@ echo    ⏫ Starting and rebuilding containers...
 echo.
 docker compose up --force-recreate --build
 echo.
-echo =======================================================
-echo          🎉 System startup complete! 🎉
-echo =======================================================
-echo.
 pause
