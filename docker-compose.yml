@@ -46,7 +46,7 @@ services:
                IS_DEVELOPMENT: ${IS_DEVELOPMENT}
                PORT: 3000
 
-               FRONT_HOST: ${PROD_FRONT_HOST}
+               FRONT_HOST: http://CE-Boostup-XIII-Frontend ${PROD_FRONT_HOST}
 
                ADMIN_EMAIL: ${ADMIN_EMAIL}
                ADMIN_PASS: ${ADMIN_PASS}
@@ -92,7 +92,7 @@ services:
                context: CE-Boostup-XIII-Frontend
                args:
                     VITE_API_HOST: ${PROD_BACK_HOST}
-                    VITE_BACK_HOST: "CE-Boostup-XIII-Backend"
+                    VITE_BACK_HOST: CE-Boostup-XIII-Backend:${BACK_PORT}
           environment:
                IS_DEVELOPMENT: ${IS_DEVELOPMENT}
           deploy:
