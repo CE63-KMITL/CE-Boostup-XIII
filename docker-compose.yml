@@ -128,10 +128,10 @@ services:
           deploy:
                resources:
                     limits:
-                         cpus: "4"
+                         cpus: ${COMPILER_CPUS}
                          memory: 500M
                     reservations:
-                         cpus: "4"
+                         cpus: ${COMPILER_CPUS}
                          memory: 100M
           ports:
              - ${COMPILER_PORT}:3002
