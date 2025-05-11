@@ -20,11 +20,11 @@ services:
           deploy:
                resources:
                     limits:
-                         cpus: "0.50"
-                         memory: 500M
+                         cpus: "1"
+                         memory: 1G
                     reservations:
-                         cpus: "0.25"
-                         memory: 100M
+                         cpus: "0.5"
+                         memory: 1G
           environment:
                POSTGRES_USER: ${DB_USERNAME}
                POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -75,11 +75,11 @@ services:
           deploy:
                resources:
                     limits:
-                         cpus: "0.50"
-                         memory: 500M
+                         cpus: "1.5"
+                         memory: 3G
                     reservations:
-                         cpus: "0.25"
-                         memory: 100M
+                         cpus: "1"
+                         memory: 3G
           ports:
              - ${BACK_PORT}:3000
           depends_on:
@@ -102,11 +102,11 @@ services:
           deploy:
                resources:
                     limits:
-                         cpus: "0.50"
-                         memory: 500M
+                         cpus: "1.5"
+                         memory: 2G
                     reservations:
-                         cpus: "0.25"
-                         memory: 100M
+                         cpus: "1"
+                         memory: 2G
           ports:
              - ${FRONT_PORT}:3001
           restart: always
@@ -129,10 +129,10 @@ services:
                resources:
                     limits:
                          cpus: ${COMPILER_CPUS}
-                         memory: 500M
+                         memory: 4G
                     reservations:
                          cpus: ${COMPILER_CPUS}
-                         memory: 100M
+                         memory: 4G
           ports:
              - ${COMPILER_PORT}:3002
           restart: always
