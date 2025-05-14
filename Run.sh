@@ -39,9 +39,9 @@ echo "     🐳 Managing Docker Containers 🐳"
 echo "======================================================="
 echo
 echo "   ⏬ Stopping existing containers (if any)..."
-docker compose down
+sudo docker compose down
 echo
 echo "   ⏫ Starting and rebuilding containers..."
 echo
-docker compose up --force-recreate --build
+sudo docker compose up --force-recreate --build
 echo
