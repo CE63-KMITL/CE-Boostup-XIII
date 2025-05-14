@@ -118,6 +118,7 @@ services:
 
      compiler:
           container_name: CE-Boostup-XIII-Compiler
+          privileged: true
           build: CE-Boostup-XIII-Compiler
           environment:
                IS_DEVELOPMENT: ${IS_DEVELOPMENT}
