@@ -64,13 +64,21 @@ echo
 changes_detected=0
 
 # ตรวจสอบและ pull repository ต่างๆ
-check_and_pull_repo "." "main" "Plan (self)" && changes_detected=$((changes_detected + $?))
+check_and_pull_repo "/home/dev/CE-Boostup-XIII" "main" "Plan (self)"
+changes_detected=$((changes_detected + $?))
+echo "Debug: changes_detected = $changes_detected"
 echo
-check_and_pull_repo "./CE-Boostup-XIII-Backend" "dev" "Backend" && changes_detected=$((changes_detected + $?))
+check_and_pull_repo "/home/dev/CE-Boostup-XIII/CE-Boostup-XIII-Backend" "dev" "Backend"
+changes_detected=$((changes_detected + $?))
+echo "Debug: changes_detected = $changes_detected"
 echo
-check_and_pull_repo "../CE-Boostup-XIII-Frontend" "dev" "Frontend" && changes_detected=$((changes_detected + $?))
+check_and_pull_repo "/home/dev/CE-Boostup-XIII/CE-Boostup-XIII-Frontend" "dev" "Frontend"
+changes_detected=$((changes_detected + $?))
+echo "Debug: changes_detected = $changes_detected"
 echo
-check_and_pull_repo "../CE-Boostup-XIII-Compiler" "main" "Compiler" && changes_detected=$((changes_detected + $?))
+check_and_pull_repo "/home/dev/CE-Boostup-XIII/CE-Boostup-XIII-Compiler" "main" "Compiler"
+changes_detected=$((changes_detected + $?))
+echo "Debug: changes_detected = $changes_detected"
 echo
 
 echo "======================================================="
