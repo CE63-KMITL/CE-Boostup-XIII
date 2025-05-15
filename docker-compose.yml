@@ -53,6 +53,7 @@ services:
 
                ADMIN_EMAIL: ${ADMIN_EMAIL}
                ADMIN_PASS: ${ADMIN_PASS}
+               MAIL_SENDER: ${MAIL_SENDER}
 
                DB_HOST: "CE-Boostup-XIII-Database"
                DB_PORT: 5432
