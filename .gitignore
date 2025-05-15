@@ -3,6 +3,7 @@
 
 .env
 
+database-backup
 CE-Boostup-XII-Backend
 CE-Boostup-XII-Frontend
 CE-Boostup-XII-Compiler
