@@ -33,6 +33,7 @@ services:
              - 5432:5432
           volumes:
              - database_data:/var/lib/postgresql/data
+             - ./database-backup:/opt/backup
           restart: always
 
      # -------------------------------------------------------
@@ -118,6 +119,7 @@ services:
 
      compiler:
           container_name: CE-Boostup-XIII-Compiler
+          privileged: true
           build: CE-Boostup-XIII-Compiler
           environment:
                IS_DEVELOPMENT: ${IS_DEVELOPMENT}
