@@ -72,8 +72,6 @@ services:
                TOKEN_KEY: ${TOKEN_KEY}
                JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
                REDIS_HOST: "CE-Boostup-XIII-Redis"
-
-               REWARDS: ${REWARDS}
           deploy:
                resources:
                     limits:
