@@ -97,6 +97,7 @@ services:
                args:
                     VITE_API_HOST: ${PROD_BACK_HOST}
                     VITE_BACK_HOST: CE-Boostup-XIII-Backend:${BACK_PORT}
+                    VITE_REDIS_HOST: CE-Boostup-XIII-Redis
           environment:
                IS_DEVELOPMENT: ${IS_DEVELOPMENT}
           deploy:
