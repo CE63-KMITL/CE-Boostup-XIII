@@ -15,14 +15,14 @@ echo
 
 echo "Backend repository..."
 cd ./CE-Boostup-XIII-Backend
-git pull origin dev
+git pull
 cd ..
 echo "✅ Backend updated"
 echo
 
 echo "Frontend repository..."
 cd ./CE-Boostup-XIII-Frontend
-git pull origin dev
+git pull
 cd ..
 echo "✅ Frontend updated"
 echo
