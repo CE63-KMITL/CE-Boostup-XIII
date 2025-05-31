@@ -134,7 +134,6 @@ services:
           deploy:
                resources:
                     limits:
-                         cpus: ${COMPILER_CPUS}
                          memory: 4G
                     reservations:
                          cpus: ${COMPILER_CPUS}
